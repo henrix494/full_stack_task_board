@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
 import Title from "../components/Title";
 import TaskCard from "../components/TaskCard";
+import TaskEdit from "../components/TaskEdit";
 interface Task {
   id: number | undefined;
   title: string | undefined;
   type: string | undefined;
   description: string | undefined;
   boardId: string | undefined;
+  icon: string | undefined;
 }
 
 interface table {
@@ -17,9 +19,12 @@ interface table {
   tasks: (Task | undefined)[] | undefined;
 }
 function App() {
+  // State of the app
   const [id, setId] = useState<string>("");
   const [tableData, setTableData] = useState<table>();
   const [load, setLoad] = useState(true);
+  const [openDraw, setOpenDraw] = useState(false);
+  //end states of the app
   const start = async () => {
     const data = await fetch(`${baseUrl}/api/boards`);
     const final = await data.json();
@@ -71,8 +76,11 @@ function App() {
     const final = await data.json();
     console.log(final);
   };
+  const drawerhandler = (props = !openDraw) => {
+    setOpenDraw(props);
+  };
   return (
-    <main className=" flex justify-center pt-20">
+    <main className=" flex justify-center pt-20 ">
       {load ? (
         <div>Load....</div>
       ) : (
@@ -87,13 +95,26 @@ function App() {
           <div className="">
             <div className="flex flex-col gap-6 ">
               {tableData?.tasks?.map((item) => (
-                // <p className="list-none">{item?.title}</p>
-                <TaskCard task={item?.title} status={item?.type} />
+                <TaskCard
+                  task={item?.title}
+                  status={item?.type}
+                  icon={item?.icon}
+                />
               ))}
             </div>
           </div>
+          <div className="mt-7">
+            <TaskCard
+              icon="/Add_round_duotone.svg"
+              task="Add new task"
+              status="add"
+              onClick={drawerhandler}
+            />
+          </div>
         </div>
       )}
+
+      <TaskEdit isOpen={openDraw} drawerhandler={drawerhandler} />
     </main>
   );
 }
