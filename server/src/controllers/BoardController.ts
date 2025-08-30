@@ -1,8 +1,11 @@
-import { cwd } from "process";
 import prisma from "../lib/prisma";
 import { genUUid } from "../lib/uuidGen";
 import { Request, Response } from "express";
-const tasksOptions = ["Task in Progress", "Task Completed", "Task Wont Do"];
+const tasksOptions = [
+  { title: "Task in Progress", icon: "/clock-svgrepo-com.svg" },
+  { title: "Task Completed", icon: "/coffee-1-svgrepo-com.svg" },
+  { title: "Task Wont Do", icon: "/pc-svgrepo-com.svg" },
+];
 export const BoardControllers = {
   newBoard: async (req: Request, res: Response) => {
     const uuid = await genUUid();
@@ -17,9 +20,10 @@ export const BoardControllers = {
       prisma.tasks.create({
         data: {
           boardId: uuid,
-          description: item,
-          title: item,
-          type: item,
+          description: item.title,
+          title: item.title,
+          type: item.title,
+          icon: item.icon,
         },
       })
     );

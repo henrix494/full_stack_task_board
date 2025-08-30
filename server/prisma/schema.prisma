@@ -26,6 +26,8 @@ model Tasks {
   title     String
   type   String
   description String
+  icon String
   board     Boards    @relation(fields: [boardId], references: [id])
   boardId  String
+
 }

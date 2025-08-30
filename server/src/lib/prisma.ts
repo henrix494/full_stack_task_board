@@ -1,6 +1,5 @@
 // lib/prisma.ts (or utils/prisma.ts)
-import { PrismaClient } from "../generated/prisma";
-
+import { PrismaClient } from "../../dist/generated/prisma";
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === "production") {

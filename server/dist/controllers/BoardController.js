@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BoardControllers = void 0;
 const prisma_1 = __importDefault(require("../lib/prisma"));
 const uuidGen_1 = require("../lib/uuidGen");
-const tasksOptions = ["Task in Progress", "Task Completed", "Task Wont Do"];
+const tasksOptions = [
+    { title: "Task in Progress", icon: "/clock-svgrepo-com.svg" },
+    { title: "Task Completed", icon: "/coffee-1-svgrepo-com.svg" },
+    { title: "Task Wont Do", icon: "/pc-svgrepo-com.svg" },
+];
 exports.BoardControllers = {
     newBoard: async (req, res) => {
         const uuid = await (0, uuidGen_1.genUUid)();
@@ -20,9 +24,11 @@ exports.BoardControllers = {
         const taskPromises = tasksOptions.map((item) => prisma_1.default.tasks.create({
             data: {
                 boardId: uuid,
-                description: item,
-                title: item,
-                type: item,
+                description: item.title,
+                title: item.title,
+                type: item.title,
+                //@ts-ignores
+                icon: item.icon,
             },
         }));
         await Promise.all(taskPromises);
