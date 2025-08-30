@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { baseUrl } from "../utils/baseUrl";
 interface table {
   id: string;
   name: string;
@@ -17,7 +18,7 @@ function App() {
   const [id, setId] = useState<string>("");
   const [tableData, setTableData] = useState<table>();
   const start = async () => {
-    const data = await fetch("http://localhost:3000/api/boards");
+    const data = await fetch(`${baseUrl}/api/boards`);
     const final = await data.json();
     if (data.status === 200) {
       localStorage.setItem("board", final.boardId);
@@ -36,7 +37,7 @@ function App() {
   };
   const getBoardDetails = async () => {
     const data = await fetch(
-      `http://localhost:3000/api/boards${window.location.pathname}`
+      `${baseUrl}/api/boards${window.location.pathname}`
     );
     const final = await data.json();
     setTableData(final);
