@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // lib/prisma.ts (or utils/prisma.ts)
-const prisma_1 = require("../generated/prisma");
+const prisma_1 = require("../../dist/generated/prisma");
 let prisma;
 if (process.env.NODE_ENV === "production") {
     prisma = new prisma_1.PrismaClient();

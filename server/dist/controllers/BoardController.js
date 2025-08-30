@@ -27,7 +27,6 @@ exports.BoardControllers = {
                 description: item.title,
                 title: item.title,
                 type: item.title,
-                //@ts-ignores
                 icon: item.icon,
             },
         }));

@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaskControllers = void 0;
+const prisma_1 = __importDefault(require("../lib/prisma"));
+exports.TaskControllers = {
+    newTask: async (req, res) => {
+        const boardId = req.params.board_id;
+        const newTask = await prisma_1.default.tasks.create({
+            data: {
+                icon: "/clock-svgrepo-com.svg",
+                description: "Task in Progress",
+                boardId: boardId,
+                title: "Task in Progress",
+                type: "Task in Progress",
+            },
+        });
+        res.status(201).send({ msg: "ok" });
+    },
+};

@@ -79,6 +79,32 @@ function App() {
   const drawerhandler = (props = !openDraw) => {
     setOpenDraw(props);
   };
+  const addTaskHandler = async () => {
+    const data = await fetch(
+      baseUrl + "/api/tasks" + window.location.pathname,
+      {
+        method: "POST",
+      }
+    );
+    const final = await data.json();
+    const newItem: Task = {
+      icon: "/clock-svgrepo-com.svg",
+      description: "Task in Progress",
+      title: "Task in Progress",
+      type: "Task in Progress",
+      boardId: "aaasc",
+      id: -1,
+    };
+    setTableData((prev) =>
+      prev
+        ? {
+            ...prev,
+            tasks: prev.tasks ? [...prev.tasks, newItem] : [newItem],
+          }
+        : prev
+    );
+    console.log(final);
+  };
   return (
     <main className=" flex justify-center pt-20 ">
       {load ? (
@@ -99,6 +125,7 @@ function App() {
                   task={item?.title}
                   status={item?.type}
                   icon={item?.icon}
+                  onClick={drawerhandler}
                 />
               ))}
             </div>
@@ -108,7 +135,7 @@ function App() {
               icon="/Add_round_duotone.svg"
               task="Add new task"
               status="add"
-              onClick={drawerhandler}
+              onClick={addTaskHandler}
             />
           </div>
         </div>

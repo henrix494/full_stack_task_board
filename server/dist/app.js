@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const BoardRoute_1 = __importDefault(require("./routes/BoardRoute"));
+const TaskRoute_1 = __importDefault(require("./routes/TaskRoute"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
@@ -12,6 +13,7 @@ app.use((0, cors_1.default)({
 }));
 app.use(express_1.default.json());
 app.use("/api/boards", BoardRoute_1.default);
+app.use("/api/tasks", TaskRoute_1.default);
 // Routes
 // Global error handler (should be after routes)
 exports.default = app;
