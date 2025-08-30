@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
+import Title from "../components/Title";
+interface Task {
+  id: number | undefined;
+  title: string | undefined;
+  type: string | undefined;
+  description: string | undefined;
+  boardId: string | undefined;
+}
+
 interface table {
-  id: string;
-  name: string;
-  description: string;
-  tasks: [
-    {
-      id: number;
-      title: string;
-      type: string;
-      description: string;
-      boardId: string;
-    }
-  ];
+  id: string | undefined;
+  name: string | undefined;
+  description: string | undefined;
+  tasks: (Task | undefined)[] | undefined;
 }
 function App() {
   const [id, setId] = useState<string>("");
@@ -47,16 +48,36 @@ function App() {
     getBoardDetails();
   }, [id]);
   if (isBoard && window.location.pathname !== `/${isBoard}`) reDirect();
+  const changeNameHandler = async (title: string) => {
+    setTableData({
+      description: tableData?.description,
+      id: tableData?.id,
+      name: title,
+      tasks: tableData?.tasks,
+    });
+    const data = await fetch(
+      `${baseUrl}/api/boards${window.location.pathname}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title: title }),
+      }
+    );
+    const final = await data.json();
+    console.log(final);
+  };
   return (
     <main className="flex justify-center flex-col  items-center pt-20">
       <div>
-        <h1>{tableData?.name}</h1>
+        <Title title={tableData?.name} changeNameHandler={changeNameHandler} />
         <h3>{tableData?.description}</h3>
       </div>
       <div>
         <ul className="list-none w-full">
-          {tableData?.tasks.map((item) => (
-            <li className="list-none">{item.title}</li>
+          {tableData?.tasks?.map((item) => (
+            <li className="list-none">{item?.title}</li>
           ))}
         </ul>
       </div>
