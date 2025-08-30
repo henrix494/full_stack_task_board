@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
 import Title from "../components/Title";
 import TaskCard from "../components/TaskCard";
