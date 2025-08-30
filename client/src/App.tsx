@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
 import Title from "../components/Title";
+import TaskCard from "../components/TaskCard";
 interface Task {
   id: number | undefined;
   title: string | undefined;
@@ -69,17 +70,23 @@ function App() {
     console.log(final);
   };
   return (
-    <main className="flex justify-center flex-col  items-center pt-20">
-      <div>
-        <Title title={tableData?.name} changeNameHandler={changeNameHandler} />
-        <h3>{tableData?.description}</h3>
-      </div>
-      <div>
-        <ul className="list-none w-full">
-          {tableData?.tasks?.map((item) => (
-            <li className="list-none">{item?.title}</li>
-          ))}
-        </ul>
+    <main className=" flex justify-center pt-20">
+      <div className="flex flex-col items-start">
+        <div className="mb-10">
+          <Title
+            title={tableData?.name}
+            changeNameHandler={changeNameHandler}
+          />
+          <h3 className="mt-4">{tableData?.description}</h3>
+        </div>
+        <div className="">
+          <div className="flex flex-col gap-6 ">
+            {tableData?.tasks?.map((item) => (
+              // <p className="list-none">{item?.title}</p>
+              <TaskCard task={item?.title} status={item?.type} />
+            ))}
+          </div>
+        </div>
       </div>
     </main>
   );

@@ -2,6 +2,7 @@ import { FaPencilAlt } from "react-icons/fa";
 import { useState } from "react";
 import BlueBtn from "../styles/buttons/BlueBtn";
 import Graybtn from "../styles/buttons/Graybtn";
+import { FaRedhat } from "react-icons/fa";
 
 export default function Title({
   title,
@@ -33,7 +34,12 @@ export default function Title({
             />
           </div>
         ) : (
-          <h1 className="text-3xl font-bold">{title}</h1>
+          <div className="relative">
+            <div className="absolute left-[-34px] top-1/2 translate-y-[-80%]">
+              <FaRedhat color="black" size={23} />
+            </div>
+            <h1 className="text-3xl font-medium">{title}</h1>
+          </div>
         )}
       </div>
       <div className="  flex items-center w-[10px] gap-8">
