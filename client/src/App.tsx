@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { baseUrl } from "../utils/baseUrl";
 import Title from "../components/Title";
 import TaskCard from "../components/TaskCard";
@@ -19,6 +19,7 @@ interface table {
 function App() {
   const [id, setId] = useState<string>("");
   const [tableData, setTableData] = useState<table>();
+  const [load, setLoad] = useState(true);
   const start = async () => {
     const data = await fetch(`${baseUrl}/api/boards`);
     const final = await data.json();
@@ -43,6 +44,7 @@ function App() {
     );
     const final = await data.json();
     setTableData(final);
+    setLoad(false);
   };
   useEffect(() => {
     handleRed();
@@ -71,23 +73,27 @@ function App() {
   };
   return (
     <main className=" flex justify-center pt-20">
-      <div className="flex flex-col items-start">
-        <div className="mb-10">
-          <Title
-            title={tableData?.name}
-            changeNameHandler={changeNameHandler}
-          />
-          <h3 className="mt-4">{tableData?.description}</h3>
-        </div>
-        <div className="">
-          <div className="flex flex-col gap-6 ">
-            {tableData?.tasks?.map((item) => (
-              // <p className="list-none">{item?.title}</p>
-              <TaskCard task={item?.title} status={item?.type} />
-            ))}
+      {load ? (
+        <div>Load....</div>
+      ) : (
+        <div className="flex flex-col items-start">
+          <div className="mb-10">
+            <Title
+              title={tableData?.name}
+              changeNameHandler={changeNameHandler}
+            />
+            <h3 className="mt-4">{tableData?.description}</h3>
+          </div>
+          <div className="">
+            <div className="flex flex-col gap-6 ">
+              {tableData?.tasks?.map((item) => (
+                // <p className="list-none">{item?.title}</p>
+                <TaskCard task={item?.title} status={item?.type} />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </main>
   );
 }
