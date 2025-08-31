@@ -3,27 +3,15 @@ import { baseUrl } from "../utils/baseUrl";
 import Title from "../components/Title";
 import TaskCard from "../components/TaskCard";
 import TaskEdit from "../components/TaskEdit";
-interface Task {
-  id: number | undefined;
-  title: string | undefined;
-  type: string | undefined;
-  description: string | undefined;
-  boardId: string | undefined;
-  icon: string | undefined;
-}
+import type { Task, table } from "../types/index";
 
-interface table {
-  id: string | undefined;
-  name: string | undefined;
-  description: string | undefined;
-  tasks: (Task | undefined)[] | undefined;
-}
 function App() {
   // State of the app
   const [id, setId] = useState<string>("");
   const [tableData, setTableData] = useState<table>();
   const [load, setLoad] = useState(true);
   const [openDraw, setOpenDraw] = useState(false);
+  const [currentTask, setCurrentTask] = useState<Task>();
   //end states of the app
   const start = async () => {
     const data = await fetch(`${baseUrl}/api/boards`);
@@ -125,7 +113,10 @@ function App() {
                   task={item?.title}
                   status={item?.type}
                   icon={item?.icon}
-                  onClick={drawerhandler}
+                  onClick={() => {
+                    drawerhandler();
+                    setCurrentTask(item);
+                  }}
                 />
               ))}
             </div>
@@ -141,7 +132,11 @@ function App() {
         </div>
       )}
 
-      <TaskEdit isOpen={openDraw} drawerhandler={drawerhandler} />
+      <TaskEdit
+        isOpen={openDraw}
+        drawerhandler={drawerhandler}
+        task={currentTask}
+      />
     </main>
   );
 }
