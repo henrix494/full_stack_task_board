@@ -81,7 +81,7 @@ function App() {
       title: "Task in Progress",
       type: "Task in Progress",
       boardId: "aaasc",
-      id: -1,
+      id: final.id,
     };
     setTableData((prev) =>
       prev
@@ -92,6 +92,33 @@ function App() {
         : prev
     );
     console.log(final);
+  };
+  // handleDelete
+  const handleDelete = async (id: number | undefined) => {
+    const filter = tableData?.tasks?.filter((item) => item?.id !== id);
+    setTableData({
+      id: tableData?.id,
+      description: tableData?.description,
+      name: tableData?.name,
+      tasks: filter,
+    });
+    const data = await fetch(`${baseUrl}/api/tasks/${id}`, {
+      method: "DELETE",
+    });
+    const final = await data.json();
+    console.log(final);
+  };
+  //end of handle delete
+  const saveHandler = (task: Task | undefined) => {
+    setTableData({
+      description: tableData?.description,
+      id: tableData?.id,
+      name: tableData?.name,
+      tasks: tableData?.tasks?.map((item) => {
+        if (item?.id === task?.id) return task;
+        return item;
+      }),
+    });
   };
   return (
     <main className=" flex justify-center pt-20 ">
@@ -136,6 +163,8 @@ function App() {
         isOpen={openDraw}
         drawerhandler={drawerhandler}
         task={currentTask}
+        handleDelete={handleDelete}
+        saveHandler={saveHandler}
       />
     </main>
   );

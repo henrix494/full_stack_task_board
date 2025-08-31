@@ -17,6 +17,15 @@ exports.TaskControllers = {
                 type: "Task in Progress",
             },
         });
-        res.status(201).send({ msg: "ok" });
+        res.status(201).send({ msg: "ok", id: newTask.id });
+    },
+    deleteTask: async (req, res) => {
+        const taskId = Number(req.params.task_id);
+        const deleteTask = await prisma_1.default.tasks.delete({
+            where: {
+                id: taskId,
+            },
+        });
+        return res.status(201).send({ msg: "ok" });
     },
 };

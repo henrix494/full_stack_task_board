@@ -3,20 +3,39 @@ import type { Task } from "../types";
 import { icontPath } from "../constants/index";
 import BlueBtn from "../styles/buttons/BlueBtn";
 import Graybtn from "../styles/buttons/Graybtn";
-
+import { useEffect, useState } from "react";
+import { taskStatus } from "../constants/index";
+import Check from "../styles/Check";
 export default function TaskEdit({
   isOpen,
   drawerhandler,
   task,
+  handleDelete,
+  saveHandler,
 }: {
   isOpen: boolean;
   drawerhandler: () => void;
   task: Task | undefined;
+  handleDelete: (id: number | undefined) => void;
+  saveHandler: (task: Task | undefined) => void;
 }) {
   const body = document.querySelector("body");
   if (body) {
     body.style.overflowX = "hidden";
   }
+  const [currentTask, setCurrentTask] = useState<Task | undefined>();
+  useEffect(() => {
+    if (task) {
+      setCurrentTask(task);
+    }
+  }, [task]);
+  const changeIconhandler = (src: string) => {
+    setCurrentTask((prev) => (prev ? { ...prev, icon: src } : prev));
+  };
+  const changeStatusHandler = (status: string) => {
+    setCurrentTask((prev) => (prev ? { ...prev, type: status } : prev));
+  };
+
   const model = () => {
     const inputStyle =
       "w-[100%] h-[30px] rounded-md px-2 outline-none border-1 border-[#00000055] focus:border-blue-500";
@@ -54,28 +73,78 @@ export default function TaskEdit({
                   placeholder={task?.description}
                 />
               </div>
-              <div className="flex flex-wrap gap-4">
-                {icontPath.map((item) => {
-                  return (
-                    <div
-                      className={`bg-[#80808046] rounded-md p-2 cursor-pointer ${
-                        item === task?.icon && "bg-yellow-300"
-                      }`}
-                    >
-                      <img src={item} className={`w-6 `} alt="desc item" />
-                    </div>
-                  );
-                })}
+              <div className="flex flex-col gap-4">
+                <p>icons</p>
+                <div className="flex flex-wrap gap-4 ">
+                  {icontPath.map((item) => {
+                    return (
+                      <div
+                        className={`bg-[#80808046] rounded-md p-2 cursor-pointer ${
+                          item === currentTask?.icon && "bg-yellow-300"
+                        }`}
+                        onClick={() => changeIconhandler(item)}
+                      >
+                        <img src={item} className={`w-6 `} alt="desc item" />
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
               <div>
-                <p>Status</p>
+                <div>
+                  <p>Status</p>
+                </div>
+                <div className=" flex flex-wrap gap-2">
+                  {taskStatus.map((item) => (
+                    <div
+                      className={`w-[45%] flex gap-8 h-[50px] border-1 border-[rgba(0,0,0,0.33)] rounded-md p-1 relative items-center ${
+                        currentTask?.type === item.status
+                          ? "border-blue-800"
+                          : "border-[rgba(0,0,0,0.33)]"
+                      }`}
+                      onClick={() => changeStatusHandler(item.status)}
+                    >
+                      <div
+                        style={{
+                          backgroundColor: item.color,
+                        }}
+                        className="h-full w-[50px] rounded-md flex  justify-center"
+                      >
+                        <img
+                          src={item.icon}
+                          className="w-7"
+                          alt={item.status + "icon"}
+                        />
+                      </div>
+                      <div>
+                        <p>{item.name}</p>
+                      </div>
+                      <div
+                        className={`  right-10 ${
+                          currentTask?.type === item.status
+                            ? "absolute"
+                            : "hidden"
+                        }`}
+                      >
+                        <Check />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
           <div className="  absolute bottom-10 right-0 w-full">
             <div className="flex justify-center gap-10">
-              <Graybtn> Delete</Graybtn>
-              <BlueBtn>Save</BlueBtn>
+              <Graybtn
+                onClick={() => {
+                  handleDelete(task?.id);
+                  drawerhandler();
+                }}
+              >
+                Delete
+              </Graybtn>
+              <BlueBtn onClick={() => saveHandler(currentTask)}>Save</BlueBtn>
             </div>
           </div>
         </div>
