@@ -6,6 +6,8 @@ import Graybtn from "../styles/buttons/Graybtn";
 import { useEffect, useState } from "react";
 import { taskStatus } from "../constants/index";
 import Check from "../styles/Check";
+import { RiCloseCircleFill } from "react-icons/ri";
+
 export default function TaskEdit({
   isOpen,
   drawerhandler,
@@ -61,6 +63,12 @@ export default function TaskEdit({
                   name="Task details"
                   id="Task details"
                   placeholder={task?.title}
+                  onChange={(e) =>
+                    setCurrentTask((prev) =>
+                      prev ? { ...prev, title: e.target.value } : prev
+                    )
+                  }
+                  value={currentTask?.title}
                 />
               </div>
               <div className="">
@@ -71,6 +79,12 @@ export default function TaskEdit({
                 <textarea
                   className={inputStyle + " h-[100px]"}
                   placeholder={task?.description}
+                  onChange={(e) => {
+                    setCurrentTask((prev) =>
+                      prev ? { ...prev, description: e.target.value } : prev
+                    );
+                  }}
+                  value={currentTask?.description}
                 />
               </div>
               <div className="flex flex-col gap-4">
@@ -146,6 +160,12 @@ export default function TaskEdit({
               </Graybtn>
               <BlueBtn onClick={() => saveHandler(currentTask)}>Save</BlueBtn>
             </div>
+          </div>
+          <div
+            onClick={() => drawerhandler()}
+            className="absolute right-10 top-4"
+          >
+            <RiCloseCircleFill size={25} />
           </div>
         </div>
       </div>

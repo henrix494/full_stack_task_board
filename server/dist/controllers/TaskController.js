@@ -28,4 +28,22 @@ exports.TaskControllers = {
         });
         return res.status(201).send({ msg: "ok" });
     },
+    editTask: async (req, res) => {
+        const taskid = Number(req.params.task_id);
+        const { id, title, type, description, boardId, icon } = await req.body;
+        const editTask = await prisma_1.default.tasks.update({
+            where: {
+                id: taskid,
+            },
+            data: {
+                boardId: boardId,
+                description: description,
+                icon: icon,
+                id: id,
+                title: title,
+                type: type,
+            },
+        });
+        return res.status(201).send({ msg: "ok" });
+    },
 };

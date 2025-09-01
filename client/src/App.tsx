@@ -80,7 +80,8 @@ function App() {
       description: "Task in Progress",
       title: "Task in Progress",
       type: "Task in Progress",
-      boardId: "aaasc",
+      boardId: window.location.pathname.slice(1),
+
       id: final.id,
     };
     setTableData((prev) =>
@@ -91,7 +92,6 @@ function App() {
           }
         : prev
     );
-    console.log(final);
   };
   // handleDelete
   const handleDelete = async (id: number | undefined) => {
@@ -109,7 +109,7 @@ function App() {
     console.log(final);
   };
   //end of handle delete
-  const saveHandler = (task: Task | undefined) => {
+  const saveHandler = async (task: Task | undefined) => {
     setTableData({
       description: tableData?.description,
       id: tableData?.id,
@@ -118,6 +118,14 @@ function App() {
         if (item?.id === task?.id) return task;
         return item;
       }),
+    });
+    //@ts-expect-error ssss
+    const send = await fetch(`${baseUrl}/api/tasks/${task?.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(task),
     });
   };
   return (
