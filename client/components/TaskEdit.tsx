@@ -41,9 +41,9 @@ export default function TaskEdit({
       "w-[100%] h-[30px] rounded-md px-2 outline-none border-1 border-[#00000055] focus:border-blue-500";
     return (
       <div
-        className={`fixed top-1/2 h-[95vh]  translate-y-[-50%]  right-2 rounded-2xl bg-white  w-[45%]  overflow-hidden  transition duration-300 ease-in-out ${
+        className={`fixed top-1/2 h-[95vh]  translate-y-[-50%]  lg:right-2 rounded-2xl bg-white  w-[45%]  overflow-hidden  transition duration-300 ease-in-out ${
           isOpen ? "translate-x-[-0%]" : "translate-x-[150%]"
-        }`}
+        } max-lg:w-screen`}
       >
         <div className="flex flex-col relative h-full">
           <div className=" p-4 ">
@@ -94,10 +94,10 @@ export default function TaskEdit({
                 <div>
                   <p>Status</p>
                 </div>
-                <div className=" flex flex-wrap gap-2">
+                <div className=" flex flex-wrap gap-2 max-lg:flex-col">
                   {taskStatus.map((item) => (
                     <div
-                      className={`w-[45%] flex gap-8 h-[50px] border-1 border-[rgba(0,0,0,0.33)] rounded-md p-1 relative items-center ${
+                      className={`lg:w-[45%] flex gap-8 h-[50px] border-1 border-[rgba(0,0,0,0.33)] rounded-md p-1 relative items-center  ${
                         currentTask?.type === item.status
                           ? "border-blue-800"
                           : "border-[rgba(0,0,0,0.33)]"
@@ -134,7 +134,7 @@ export default function TaskEdit({
               </div>
             </div>
           </div>
-          <div className="  absolute bottom-10 right-0 w-full">
+          <div className="  absolute lg:bottom-10 bottom-1 right-0 w-full">
             <div className="flex justify-center gap-10">
               <Graybtn
                 onClick={() => {

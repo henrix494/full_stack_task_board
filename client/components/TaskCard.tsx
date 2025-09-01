@@ -36,7 +36,7 @@ export default function TaskCard({
         borderRadius: "0.60rem",
         color: "#fff",
       }}
-      className="w-2xl h-20 rounded-2xl flex items-center hover:opacity-90 cursor-pointer "
+      className="w-2xl max-lg:max-w-[80vw] h-20 rounded-2xl flex items-center hover:opacity-90 cursor-pointer "
     >
       <div className=" flex items-center justify-center gap-10">
         <div
