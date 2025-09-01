@@ -12,7 +12,7 @@ export default function Graybtn({
       onClick={onClick}
       className="text-white bg-gray-400 w-[120px] py-1 rounded-2xl flex items-center  justify-center gap-2 cursor-pointer"
     >
-      <div> {children}</div>
+      <div className="cursor-pointer"> {children}</div>
       <IoTrashBin />
     </div>
   );

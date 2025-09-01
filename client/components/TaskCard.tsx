@@ -15,6 +15,12 @@ export default function TaskCard({
     "Task Wont Do": "#ef44446c", // red
     default: "#e0dd2061", // gray
   };
+  const statusImage: Record<string, string> = {
+    "Task in Progress": "/clock-svgrepo-com.svg", // blue
+    "Task Completed": "/Done_round.svg", // green
+    "Task Wont Do": "/close_ring_duotone.svg", // red
+    default: "#e0dd2061", // gray
+  };
   // const iconForCard: Record<string, string> = {
   //   pc: "/pc-svgrepo-com.svg",
   //   chat: "/chat-dots-svgrepo-com.svg",
@@ -26,7 +32,7 @@ export default function TaskCard({
     status && statusColors[status]
       ? statusColors[status]
       : statusColors["default"];
-
+  console.log(status);
   return (
     <div
       onClick={onClick}
@@ -38,15 +44,30 @@ export default function TaskCard({
       }}
       className="w-2xl max-lg:max-w-[80vw] h-20 rounded-2xl flex items-center hover:opacity-90 cursor-pointer "
     >
-      <div className=" flex items-center justify-center gap-10">
-        <div
-          className={`${
-            icon === "/Add_round_duotone.svg" ? "bg-amber-400" : "bg-white"
-          }  p-2 rounded-xl`}
-        >
-          <img width={28} src={icon} alt={"icon"} />
+      <div className=" flex items-center justify-between gap-10 w-full">
+        <div className="flex items-center gap-10">
+          <div
+            className={`${
+              icon === "/Add_round_duotone.svg" ? "bg-amber-400" : "bg-white"
+            }  p-2 rounded-xl`}
+          >
+            <img width={28} src={icon} alt={"icon"} />
+          </div>
+          <p className="font-medium text-black text-2xl">{task}</p>
         </div>
-        <p className="font-medium text-black text-2xl">{task}</p>
+        {status !== "add" && (
+          <div
+            className={`p-3  rounded-md ${
+              status === "Task in Progress" && "bg-[#ecad24ad]"
+            }
+            ${status === "Task Completed" && "bg-[#24c0249f]"} ${
+              status === "Task Wont Do" && "bg-[#ff0000a1]"
+            }`}
+          >
+            {/* //@ts-expect-error ssss */}
+            <img className={`w-6 `} src={statusImage[status || 0]} />
+          </div>
+        )}
       </div>
     </div>
   );

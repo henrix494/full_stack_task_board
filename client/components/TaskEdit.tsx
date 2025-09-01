@@ -158,7 +158,9 @@ export default function TaskEdit({
               >
                 Delete
               </Graybtn>
-              <BlueBtn onClick={() => saveHandler(currentTask)}>Save</BlueBtn>
+              <BlueBtn onClick={() => saveHandler(currentTask)}>
+                <p className="cursor-pointer">Save</p>{" "}
+              </BlueBtn>
             </div>
           </div>
           <div
