@@ -4,7 +4,7 @@ import Title from "../components/Title";
 import TaskCard from "../components/TaskCard";
 import TaskEdit from "../components/TaskEdit";
 import type { Task, table } from "../types/index";
-
+import TableOptions from "../components/TableOptions";
 function App() {
   // State of the app
   const [id, setId] = useState<string>("");
@@ -134,6 +134,7 @@ function App() {
         <div>Load....</div>
       ) : (
         <div className="flex flex-col items-start">
+          <TableOptions />
           <div className="mb-10">
             <Title
               title={tableData?.name}
