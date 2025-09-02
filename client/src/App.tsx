@@ -5,6 +5,7 @@ import TaskCard from "../components/TaskCard";
 import TaskEdit from "../components/TaskEdit";
 import type { Task, table } from "../types/index";
 import TableOptions from "../components/TableOptions";
+import GootherModel from "../components/GootherModel";
 function App() {
   // State of the app
   const [id, setId] = useState<string>("");
@@ -39,10 +40,7 @@ function App() {
     setTableData(final);
     setLoad(false);
   };
-  useEffect(() => {
-    handleRed();
-    getBoardDetails();
-  }, [id]);
+
   if (isBoard && window.location.pathname !== `/${isBoard}`) reDirect();
   const changeNameHandler = async (title: string) => {
     setTableData({
@@ -128,13 +126,28 @@ function App() {
       body: JSON.stringify(task),
     });
   };
+  const [isModelChangeTable, setIsModelChangeTable] = useState(false);
+  const goToOtherTableHandler = (open: boolean) => {
+    setIsModelChangeTable(open);
+  };
+  const handleBoardChange = (id: string) => {
+    window.location.assign(`${window.location.host}/${id}`);
+    console.log(id);
+  };
+  useEffect(() => {
+    handleRed();
+    getBoardDetails();
+  }, [id]);
   return (
     <main className=" flex justify-center pt-20 ">
       {load ? (
         <div>Load....</div>
       ) : (
         <div className="flex flex-col items-start">
-          <TableOptions />
+          <TableOptions
+            goToOtherTableHandler={goToOtherTableHandler}
+            handleBoardChange={handleBoardChange}
+          />
           <div className="mb-10">
             <Title
               title={tableData?.name}
@@ -174,6 +187,11 @@ function App() {
         task={currentTask}
         handleDelete={handleDelete}
         saveHandler={saveHandler}
+      />
+      <GootherModel
+        isOpen={isModelChangeTable}
+        goToOtherTableHandler={goToOtherTableHandler}
+        handleBoardChange={handleBoardChange}
       />
     </main>
   );
