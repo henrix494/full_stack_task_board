@@ -10,9 +10,9 @@ export default function TaskCard({
   onClick?: () => void;
 }) {
   const statusColors: Record<string, string> = {
-    "Task in Progress": "#3b83f694", // blue
-    "Task Completed": "#22c55e8f", // green
-    "Task Wont Do": "#ef44446c", // red
+    "Task in Progress": "#F5D566", // blue
+    "Task Completed": "#A1ECB1", // green
+    "Task Wont Do": "#F7D3D3", // red
     default: "#e0dd2061", // gray
   };
   const statusImage: Record<string, string> = {
@@ -58,10 +58,10 @@ export default function TaskCard({
         {status !== "add" && (
           <div
             className={`p-3  rounded-md ${
-              status === "Task in Progress" && "bg-[#ecad24ad]"
+              status === "Task in Progress" && "bg-[#E9A23B]"
             }
-            ${status === "Task Completed" && "bg-[#24c0249f]"} ${
-              status === "Task Wont Do" && "bg-[#ff0000a1]"
+            ${status === "Task Completed" && "bg-[#32D757]"} ${
+              status === "Task Wont Do" && "bg-[#DD524B]"
             }`}
           >
             {/* //@ts-expect-error ssss */}
