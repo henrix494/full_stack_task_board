@@ -167,7 +167,7 @@ function App() {
               title={tableData?.name}
               changeNameHandler={changeNameHandler}
             />
-            <h3 className="mt-4">{tableData?.description}</h3>
+            <h2 className="mt-4">{tableData?.description}</h2>
           </div>
           <div className="">
             <div className="flex flex-col gap-6 ">
