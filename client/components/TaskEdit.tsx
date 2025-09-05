@@ -77,6 +77,8 @@ export default function TaskEdit({
                 </label>
 
                 <textarea
+                  name="ask Description"
+                  id="ask Description"
                   className={inputStyle + " h-[100px]"}
                   placeholder={task?.description}
                   onChange={(e) => {
