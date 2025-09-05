@@ -65,7 +65,11 @@ export default function TaskCard({
             }`}
           >
             {/* //@ts-expect-error ssss */}
-            <img className={`w-6 `} src={statusImage[status || 0]} />
+            <img
+              className={`w-6 `}
+              src={statusImage[status || 0]}
+              alt="image status"
+            />
           </div>
         )}
       </div>

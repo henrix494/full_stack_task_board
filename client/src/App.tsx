@@ -6,6 +6,7 @@ import TaskEdit from "../components/TaskEdit";
 import type { Task, table } from "../types/index";
 import TableOptions from "../components/TableOptions";
 import GootherModel from "../components/GootherModel";
+import { Helmet } from "react-helmet";
 function App() {
   // State of the app
   const [id, setId] = useState<string>("");
@@ -140,6 +141,19 @@ function App() {
   }, [id]);
   return (
     <main className=" flex justify-center pt-20 ">
+      <Helmet>
+        <title>My Page Title</title>
+        <meta
+          name="Task Board editor"
+          content="This is the description of my page."
+        />
+        <meta property="og:title" content="My Social Media Title" />
+        <meta
+          property="og:description"
+          content="A description for social media sharing."
+        />
+        <meta property="og:image" content="https://example.com/image.jpg" />
+      </Helmet>
       {load ? (
         <div>Load....</div>
       ) : (
