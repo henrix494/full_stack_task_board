@@ -131,8 +131,8 @@ function App() {
     setIsModelChangeTable(open);
   };
   const handleBoardChange = (id: string) => {
-    window.location.assign(`${window.location.host}/${id}`);
-    console.log(id);
+    window.location.assign(`/${id}`);
+    localStorage.setItem("board", id);
   };
   useEffect(() => {
     handleRed();

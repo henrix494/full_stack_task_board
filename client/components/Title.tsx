@@ -20,7 +20,6 @@ export default function Title({
   };
   return (
     <div className="flex items-center gap-6">
-      <div></div>
       <div className="">
         {isEditing ? (
           <div>
@@ -43,12 +42,12 @@ export default function Title({
           </div>
         )}
       </div>
-      <div className="  flex items-center w-[10px] gap-8">
-        <div onClick={editHandler} className="hover:opacity-60">
+      <div className="  flex items-center w-[10px] gap-2">
+        <div onClick={editHandler} className="hover:opacity-60 z-10">
           <FaPencilAlt />
         </div>
         {isEditing && (
-          <div className="flex gap-10 items-center">
+          <div className="flex lg:gap-6 items-center max-lg:gap-1 max-lg:absolute max-lg:top-5 left-0 ">
             <div
               onClick={() => {
                 //@ts-expect-error ssss

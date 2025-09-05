@@ -43,9 +43,9 @@ export default function TaskEdit({
       "w-[100%] h-[30px] rounded-md px-2 outline-none border-1 border-[#00000055] focus:border-blue-500";
     return (
       <div
-        className={`fixed top-1/2 h-[95vh]  translate-y-[-50%]  lg:right-2 rounded-2xl bg-white  w-[45%]  overflow-hidden  transition duration-300 ease-in-out ${
+        className={`fixed top-1/2 h-[95vh]  translate-y-[-50%]  lg:right-2 lg:rounded-2xl bg-white  w-[45%]  overflow-hidden  transition duration-300 ease-in-out ${
           isOpen ? "translate-x-[-0%]" : "translate-x-[150%]"
-        } max-lg:w-screen`}
+        } max-lg:w-[100dvw] max-lg:h-[100dvh] z-20`}
       >
         <div className="flex flex-col relative h-full">
           <div className=" p-4 ">
@@ -158,8 +158,13 @@ export default function TaskEdit({
               >
                 Delete
               </Graybtn>
-              <BlueBtn onClick={() => saveHandler(currentTask)}>
-                <p className="cursor-pointer">Save</p>{" "}
+              <BlueBtn
+                onClick={() => {
+                  saveHandler(currentTask);
+                  drawerhandler();
+                }}
+              >
+                <p className="cursor-pointer z-10 ">Save</p>{" "}
               </BlueBtn>
             </div>
           </div>

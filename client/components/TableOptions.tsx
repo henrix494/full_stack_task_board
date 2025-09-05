@@ -2,15 +2,22 @@ import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { useState } from "react";
 export default function TableOptions({
   goToOtherTableHandler,
-  //@ts-expect-error sss
-  handleBoardChange,
 }: {
   goToOtherTableHandler: (open: boolean) => void;
   handleBoardChange: (id: string) => void;
 }) {
   const [isOpen, setIsopen] = useState(false);
+  const handleCopy = async () => {
+    const path = window.location.pathname.slice(1);
+    try {
+      window.navigator.clipboard.writeText(path);
+      alert("id is copied");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div className="absolute lg:right-1/2 lg:translate-x-[70%] max-sm:top-0 max-lg:right-0">
+    <div className="absolute lg:left-1/2 lg:translate-x-[150%] max-sm:top-0 max-lg:right-0 ">
       <div
         onMouseEnter={() => {
           setIsopen(true);
@@ -42,7 +49,10 @@ export default function TableOptions({
         >
           Go to other board
         </button>
-        <button className={`${!isOpen && "hidden"} self-start cursor-pointer`}>
+        <button
+          onClick={handleCopy}
+          className={`${!isOpen && "hidden"} self-start cursor-pointer`}
+        >
           Share board
         </button>
       </div>
