@@ -25,6 +25,9 @@ export default function TableOptions({
         onMouseLeave={() => {
           setIsopen(false);
         }}
+        onClick={() => {
+          setIsopen(!isOpen);
+        }}
         className={`mb-16  bg-[#aaa8a85e] p-2 rounded-md flex flex-col   gap-2 transition-all  left-0
             ${isOpen && "h-[80%]"}`}
       >
